@@ -2506,3 +2506,12 @@ config FB_R61520
 	help
 	  Framebuffer driver for Renesas R61520 SLCD panel.
 
+config FB_MIYOO_POCKETGO
+       tristate "Renesas R61520 SLCD framebuffer support, modified for PocketGo."
+       depends on FB
+       select FB_SYS_FILLRECT
+       select FB_SYS_COPYAREA
+       select FB_SYS_IMAGEBLIT
+       help
+         Framebuffer driver for Renesas R61520 SLCD panel, modified for PocketGo to reach 60FPS.
+
