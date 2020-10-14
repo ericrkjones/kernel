@@ -924,114 +924,109 @@ static int panel_init(void)
 		ser_wr_cmd(0x2c);
 		mdelay(120);
   #else
-    ser_wr_cmd(0x36);
-    ser_wr_dat(0x00);
+    ser_wr_cmd(0x36);//Memory Data Access Control
+    ser_wr_dat(0xB0);
 
-    ser_wr_cmd(0xb2); // porch
-    ser_wr_dat(0x08); // back porch
-    ser_wr_dat(0x08); // front porch
-    ser_wr_dat(0x00); // psen
-    ser_wr_dat(0x88);
-    ser_wr_dat(0x88);
-   
-    ser_wr_cmd(0xb7);
-    ser_wr_dat(0x35);
-    
-    ser_wr_cmd(0xbb);
-    ser_wr_dat(0x15);
-   
-    ser_wr_cmd(0xc0);
-    ser_wr_dat(0x6e);
+    ser_wr_cmd(0x3a);//Interface Pixel Format
+    ser_wr_dat(0x55);
 
-    ser_wr_cmd(0xc2);
-    ser_wr_dat(0x01);
-
-    ser_wr_cmd(0xc3);
-    ser_wr_dat(0x0b);
-   
-    ser_wr_cmd(0xc4);
-    ser_wr_dat(0x20);
-   
-    ser_wr_cmd(0xc6);
-    ser_wr_dat(0x0f);
-   
-    ser_wr_cmd(0xca);
-    ser_wr_dat(0x0f);
-
-    ser_wr_cmd(0xc8);
-    ser_wr_dat(0x08);
-
-    ser_wr_cmd(0x55);
-    ser_wr_dat(0x90);
-
-    ser_wr_cmd(0xd0);
-    ser_wr_dat(0xa4);
-    ser_wr_dat(0xa1);
-    
-    ser_wr_cmd(0xe0);
-    ser_wr_dat(0xd0);
-    ser_wr_dat(0x00);
-    ser_wr_dat(0x00);
-    ser_wr_dat(0x08);
-    ser_wr_dat(0x11);
-    ser_wr_dat(0x1a);
-    ser_wr_dat(0x2b);
-    ser_wr_dat(0x33);
-    ser_wr_dat(0x42);
-    ser_wr_dat(0x26);
-    ser_wr_dat(0x12);
-    ser_wr_dat(0x21);
-    ser_wr_dat(0x2f);
-    ser_wr_dat(0x11);
-   
-    ser_wr_cmd(0xe1);
-    ser_wr_dat(0xd0);
-    ser_wr_dat(0x02);
-    ser_wr_dat(0x09);
-    ser_wr_dat(0x0d);
-    ser_wr_dat(0x0d);
-    ser_wr_dat(0x27);
-    ser_wr_dat(0x2b);
-    ser_wr_dat(0x33);
-    ser_wr_dat(0x42);
-    ser_wr_dat(0x17);
-    ser_wr_dat(0x12);
-    ser_wr_dat(0x11);
-    ser_wr_dat(0x2f);
-    ser_wr_dat(0x31);
-
-    ser_wr_cmd(0x21);
-   
-    ser_wr_cmd(0xb0);
-    ser_wr_dat(0x11); // rgb interface
-    ser_wr_dat(0x00);
-   
-    ser_wr_cmd(0xb1);
-    ser_wr_dat(0x40); // rgb mode
-    ser_wr_dat(0x08); // vbp 
-    ser_wr_dat(0x08); // hbp
-
-    ser_wr_cmd(0x3a); 
-    ser_wr_dat(0x55); // 18bit=0x66, 16bit=0x55
-
-    ser_wr_cmd(0x2b);
-    ser_wr_dat(0x00);
-    ser_wr_dat(0x00);
-    ser_wr_dat(0x00);
-    ser_wr_dat(0xef);
-   
-    ser_wr_cmd(0x2a);
+    ser_wr_cmd(0x2a);//Column Address Set
     ser_wr_dat(0x00);
     ser_wr_dat(0x00);
     ser_wr_dat(0x01);
     ser_wr_dat(0x3f);
 
-    ser_wr_cmd(0x11); 
-    mdelay(120); 
+    ser_wr_cmd(0x2b);//Row Address Set
+    ser_wr_dat(0x00);
+    ser_wr_dat(0x00);
+    ser_wr_dat(0x00);
+    ser_wr_dat(0xef);
+
+    ser_wr_cmd(0xb2);//Porch Setting
+    ser_wr_dat(0x0a);// BPA
+    ser_wr_dat(0x0a);// FPA
+    ser_wr_dat(0x00);// PSEN disable
+    ser_wr_dat(0x33);
+    ser_wr_dat(0x33);
+
+    ser_wr_cmd(0xb7);//Gate Control
+    ser_wr_dat(0x35);// VGH 13.26V, VGL -10.43V
+
+    ser_wr_cmd(0xb8);//Gate On Timing Adjustment
+    ser_wr_dat(0x2f);
+    ser_wr_dat(0x2b);
+    ser_wr_dat(0x2f);
+
+    ser_wr_cmd(0xbb);//VCOM Setting
+    ser_wr_dat(0x15);//0.625
+
+    ser_wr_cmd(0xc0);//LCM Control
+    ser_wr_dat(0x3C);
+
+    ser_wr_cmd(0xc2);//VDV and VRH Command Enable
+    ser_wr_dat(0x01);
+
+    ser_wr_cmd(0xc3);
+    ser_wr_dat(0x13);
+
+    ser_wr_cmd(0xc4);
+    ser_wr_dat(0x20);
+
+    ser_wr_cmd(0xc6);//Frame Rate Control in Normal Mode
+    ser_wr_dat(0x09);//0x05=90HZ, 0x09=75HZ, 0x0F=60HZ, 0x15=50HZ, 0x1E=40HZ
+
+    ser_wr_cmd(0xd0);//Power Control 1
+    ser_wr_dat(0xa4);
+    ser_wr_dat(0xa1);
+
+    ser_wr_cmd(0xe8);//Power Control 2
+    ser_wr_dat(0x03);
+
+    ser_wr_cmd(0xe9);//Equalize time control
+    ser_wr_dat(0x0d);
+    ser_wr_dat(0x12);
+    ser_wr_dat(0x00);
+
+    ser_wr_cmd(0xe0);//Positive Voltage Gamma Control
+    ser_wr_dat(0x70);
+    ser_wr_dat(0x00);
+    ser_wr_dat(0x06);
+    ser_wr_dat(0x09);
+    ser_wr_dat(0x0b);
+    ser_wr_dat(0x2a);
+    ser_wr_dat(0x3c);
+    ser_wr_dat(0x33);
+    ser_wr_dat(0x4b);
+    ser_wr_dat(0x08);
+    ser_wr_dat(0x16);
+    ser_wr_dat(0x14);
+    ser_wr_dat(0x2a);
+    ser_wr_dat(0x23);
+
+    ser_wr_cmd(0xe1);//Negative Voltage Gamma Control
+    ser_wr_dat(0xd0);
+    ser_wr_dat(0x00);
+    ser_wr_dat(0x06);
+    ser_wr_dat(0x09);
+    ser_wr_dat(0x0b);
+    ser_wr_dat(0x29);
+    ser_wr_dat(0x36);
+    ser_wr_dat(0x54);
+    ser_wr_dat(0x4b);
+    ser_wr_dat(0x0d);
+    ser_wr_dat(0x16);
+    ser_wr_dat(0x14);
+    ser_wr_dat(0x28);
+    ser_wr_dat(0x22);
+
+    ser_wr_cmd(0x35);// Tearing Effect Line On
+    ser_wr_dat(0x00);// te mode 0:  V-Blanking information only
+
+    mdelay(2);
     ser_wr_cmd(0x29);
-    mdelay(120);
-    ser_wr_cmd(0x2c); 
-    mdelay(120);
+    mdelay(2);
+    ser_wr_cmd(0x2c);
+    mdelay(2);
   #endif
     ser_deinit();
     break;
